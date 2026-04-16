@@ -1,0 +1,36 @@
+name: Dump PR Context
+
+on:
+  pull_request_target:
+    types: [synchronize, opened, reopened]
+
+jobs:
+  dump:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump PR context
+        run: |
+          echo "=== Pull Request Context ==="
+          echo "head_sha:        ${{ github.event.pull_request.head.sha }}"
+          echo "base_sha:        ${{ github.event.pull_request.base.sha }}"
+          echo "head_ref:        ${{ github.event.pull_request.head.ref }}"
+          echo "base_ref:        ${{ github.event.pull_request.base.ref }}"
+          echo "head_repo:       ${{ github.event.pull_request.head.repo.full_name }}"
+          echo "base_repo:       ${{ github.event.pull_request.base.repo.full_name }}"
+          echo "head_repo.fork:  ${{ github.event.pull_request.head.repo.fork }}"
+          echo "actor:           ${{ github.actor }}"
+          echo "event_name:      ${{ github.event_name }}"
+          echo "event.action:    ${{ github.event.action }}"
+          echo "event.before:    ${{ github.event.before }}"
+          echo "event.after:     ${{ github.event.after }}"
+          echo "pr_number:       ${{ github.event.pull_request.number }}"
+          echo "merge_commit_sha:${{ github.event.pull_request.merge_commit_sha }}"
+          echo "rebaseable:      ${{ github.event.pull_request.rebaseable }}"
+          echo "run_id:          ${{ github.run_id }}"
+          echo "run_number:      ${{ github.run_number }}"
+          echo "run_attempt:     ${{ github.run_attempt }}"
+          echo "sha (workflow):  ${{ github.sha }}"
+          echo "ref (workflow):  ${{ github.ref }}"
+          echo ""
+          echo "=== Full event JSON ==="
+          cat $GITHUB_EVENT_PATH
